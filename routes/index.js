@@ -18,6 +18,8 @@ app.use(
     })
 );
 
+
+
 //API middleware
 const middleware = (req,res,next) =>{
     //login -> check if user is there in the db or we check user token is still active or if user session is still active
@@ -40,33 +42,40 @@ const middleware = (req,res,next) =>{
     //     next('/signUp')
     // }
 }
-// app.get("/",cors,(req,res)=>{
-//     res.json({
-//         employee :[{name:"nakul dev",}]
-//         ,
-//     });
-// });
 
 
-app.get("/home",cors(),(req,res)=>{
+
+
+app.get("/",cors(),(req,res)=>{
+    res.send('cors is used here')
+    res.json({
+        employee :[{name:"Nakul",
+        designation: 'Data engineer',
+        jobExperience : '2-3 Years'
+    }]
+        ,
+    });
+});
+
+app.get("/home",middleware,(req,res)=>{
+    // 
     res.json({
         employee :[{name:"nakul dev",}]
         ,
     });
+   
 });
-app.get("/",middleware,(req,res)=>{
-    res.json({
-        employee :[{name:"You are on the first page",}]
-        ,
-    });
-});
-app.post("/login",middleware,(req,res)=>{
 
+
+
+app.get("/login",middleware,(req,res)=>{
+    res.send('middleware 1 is used here')
 })
 
 app.get("/api",middleware,(req,res)=>{
-   console.log('Logged in')
-   res.send("logged in")
+
+//    console.log('Logged in')
+res.send('middleware 1 is used here')
 });
 
 app.listen(3000,()=>{
